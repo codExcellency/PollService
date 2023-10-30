@@ -25,7 +25,7 @@ public class QuestionController {
 	@Autowired
 	private QuestionRepository questionrepository;
 	
-	@RequestMapping(value = "addQuestion")
+	@RequestMapping(value = "addquestion")
 	public String addQuestion(Model model) {
 		model.addAttribute("question", new Question());
 		return "addquestion";
