@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import jakarta.annotation.Resource;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 
@@ -42,6 +41,12 @@ public class PollController {
 	public String showOnePoll(@PathVariable("id") Long poll_Id, Model model) {
 		model.addAttribute("poll", pollrepository.findById(poll_Id));
 		return "showpoll";
+	}
+	
+	@GetMapping(value = "/pollv1")
+	public String listPOlls(Model model) {
+		model.addAttribute("polls", pollrepository.findAll());
+		return "pollv1";
 	}
 	
 	//REST
