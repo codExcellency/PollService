@@ -40,4 +40,10 @@ public class PollController {
 		return "showpoll";
 	}
 
+	@GetMapping(value = "/pollv1")
+	public String listPOlls(Model model) {
+		model.addAttribute("polls", pollrepository.findAll());
+		return "pollv1";
+	}
+
 }
