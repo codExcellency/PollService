@@ -36,7 +36,13 @@ public class PollController {
 	public String showOnePoll(@PathVariable("id") Long pollId, Model model) {
 		model.addAttribute("poll", pollrepository.findById(pollId));
 		return "showpoll";
-}
+	}
+	
+	@GetMapping(value = "/pollv1")
+	public String listPOlls(Model model) {
+		model.addAttribute("polls", pollrepository.findAll());
+		return "pollv1";
+	}
 	
 
 }
