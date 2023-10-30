@@ -21,37 +21,37 @@ import projekti.PollService.domain.QuestionRepository;
 @CrossOrigin
 @Controller
 public class QuestionController {
-	
+
 	@Autowired
 	private QuestionRepository questionrepository;
-	
+
 	@RequestMapping(value = "addQuestion")
 	public String addQuestion(Model model) {
 		model.addAttribute("question", new Question());
 		return "addquestion";
 	}
-	
+
 	@PostMapping(value = "savequestion")
 	public String saveQuestion(@ModelAttribute Question question) {
 		questionrepository.save(question);
-		return "redirect:/showpoll";
+		return "redirect:/showPoll";
 	}
-	
-	//REST
-	
-	//Get all questions
+
+	// REST
+
+	// Get all questions
 	@GetMapping(value = "/questions")
-	public @ResponseBody List<Question> questionListRest(){
+	public @ResponseBody List<Question> questionListRest() {
 		return (List<Question>) questionrepository.findAll();
 	}
 
-	//Get question by id
+	// Get question by id
 	@GetMapping(value = "/questions/{id}")
-	public  @ResponseBody Optional<Question> findQuestionRest(@PathVariable("id") Long question_id){
+	public @ResponseBody Optional<Question> findQuestionRest(@PathVariable("id") Long question_id) {
 		return questionrepository.findById(question_id);
 	}
-	
-	//Add new question
+
+	// Add new question
 	@PostMapping(value = "/questions")
 	public @ResponseBody Question saveQuestionRest(@RequestBody Question question) {
 		return questionrepository.save(question);
