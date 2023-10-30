@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add poll</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>New poll</h1>
+    <form method="post" th:action="@{/savePoll}" th:object="${poll}">
+        <label>Poll name</label>
+        <p><input type="text" th:field="*{poll.name}" /></p>
+        <label>Description</label>
+        <p><input type="text" th:field="*{poll.description}" /></p>
+        <input type="submit" value="Save" />
+    </form>
+</body>
+
+</html>
