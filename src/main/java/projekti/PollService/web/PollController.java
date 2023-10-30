@@ -14,29 +14,30 @@ import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 
 @CrossOrigin
-@Controller	
+@Controller
 public class PollController {
-	
+
 	@Autowired
 	private PollRepository pollrepository;
-	
+
 	@RequestMapping(value = "/addPoll")
-	public String addPoll(Model model){
-	model.addAttribute("poll", new Poll());
-	return "addpoll";
+	public String addPoll(Model model) {
+		model.addAttribute("poll", new Poll());
+		return "addpoll";
 	}
-	
+
 	@PostMapping(value = "/savePoll")
 	public String savePoll(@ModelAttribute Poll poll) {
 		pollrepository.save(poll);
-		return "redirect:/showpoll";
+		Long pollId = poll.getPoll_id();
+		return "redirect:/showPoll/" + pollId;
 	}
-	
+
 	@GetMapping(value = "/showPoll/{id}")
 	public String showOnePoll(@PathVariable("id") Long pollId, Model model) {
-		model.addAttribute("poll", pollrepository.findById(pollId));
+		Poll poll = pollrepository.findById(pollId).orElse(null);
+		model.addAttribute("poll", poll);
 		return "showpoll";
-}
-	
+	}
 
 }

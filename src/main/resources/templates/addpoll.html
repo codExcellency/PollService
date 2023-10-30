@@ -10,9 +10,9 @@
     <h1>New poll</h1>
     <form method="post" th:action="@{/savePoll}" th:object="${poll}">
         <label>Poll name</label>
-        <p><input type="text" th:field="*{poll.name}" /></p>
+        <p><input type="text" th:field="*{name}" /></p>
         <label>Description</label>
-        <p><input type="text" th:field="*{poll.description}" /></p>
+        <p><input type="text" th:field="*{description}" /></p>
         <input type="submit" value="Save" />
     </form>
 </body>
