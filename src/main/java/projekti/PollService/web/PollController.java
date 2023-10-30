@@ -1,5 +1,8 @@
 package projekti.PollService.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.annotation.Resource;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 
@@ -22,8 +28,8 @@ public class PollController {
 	
 	@RequestMapping(value = "/addPoll")
 	public String addPoll(Model model){
-	model.addAttribute("poll", new Poll());
-	return "addpoll";
+		model.addAttribute("poll", new Poll());
+		return "addpoll";
 	}
 	
 	@PostMapping(value = "/savePoll")
@@ -33,10 +39,28 @@ public class PollController {
 	}
 	
 	@GetMapping(value = "/showPoll/{id}")
-	public String showOnePoll(@PathVariable("id") Long pollId, Model model) {
-		model.addAttribute("poll", pollrepository.findById(pollId));
+	public String showOnePoll(@PathVariable("id") Long poll_Id, Model model) {
+		model.addAttribute("poll", pollrepository.findById(poll_Id));
 		return "showpoll";
-}
+	}
 	
+	//REST
+	
+	//Get all polls
+	@GetMapping(value = "/polls")
+	public @ResponseBody List<Poll> pollListRest(){
+		return (List<Poll>) pollrepository.findAll();
+	}
 
+	//Get poll by id
+	@GetMapping(value = "/polls/{id}")
+	public @ResponseBody Optional<Poll> findPollRest(@PathVariable("id") Long poll_id){
+		return pollrepository.findById(poll_id);
+	}
+	
+	//Add new poll
+	@PostMapping(value = "/polls")
+	public @ResponseBody Poll savePollRest(@RequestBody Poll poll) {
+		return pollrepository.save(poll);
+	}
 }
