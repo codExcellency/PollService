@@ -38,9 +38,10 @@ public class Question {
 		this.content = content;
 	}
 	
-	public Question(String content) {
+	public Question(String content, Poll poll) {
 		super();
 		this.content = content;
+		this.poll = poll;
 	}
 	public Question() {
 		super();
