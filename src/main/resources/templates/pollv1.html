@@ -9,7 +9,16 @@
 <body>
     <h1>Welcome</h1>
     <a href="/addPoll">Create poll</a>
-
+	<table>
+		<tr>
+			<th>Poll name</th>
+			<th>Description</th>
+		</tr>
+		<tr th:each="poll : ${polls}">
+			<td th:text="${poll.name}">name</td>
+			<td th:text="${poll.description}">description</td>
+		</tr>
+	</table>
 </body>
 
 </html>
