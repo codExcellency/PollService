@@ -16,7 +16,7 @@ public class Poll {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long poll_id;
+	private Long pollId;
 	private String name;
 	private String description;
 	
@@ -24,11 +24,11 @@ public class Poll {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "poll")
 	private List<Question> questions;
 	
-	public Long getPoll_id() {
-		return poll_id;
+	public Long getPollId() {
+		return pollId;
 	}
-	public void setPoll_id(Long poll_id) {
-		this.poll_id = poll_id;
+	public void setPollId(Long pollId) {
+		this.pollId = pollId;
 	}
 	public List<Question> getQuestions() {
 		return questions;
