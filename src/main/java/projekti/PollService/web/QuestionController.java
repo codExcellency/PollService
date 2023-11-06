@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projekti.PollService.domain.Poll;
+import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.Question;
 import projekti.PollService.domain.QuestionRepository;
 
@@ -25,16 +27,25 @@ public class QuestionController {
 	@Autowired
 	private QuestionRepository questionrepository;
 
-	@RequestMapping(value = "addQuestion")
-	public String addQuestion(Model model) {
-		model.addAttribute("question", new Question());
+	@Autowired
+	private PollRepository pollRepository;
+
+	@RequestMapping(value = "addQuestion/{id}")
+	public String addQuestion(@PathVariable("id") Long pollId, Model model) {
+
+		Question newQuestion = new Question();
+		Poll poll = pollRepository.findById(pollId).orElse(null);
+		newQuestion.setPoll(poll);
+		model.addAttribute("newQuestion", newQuestion);
 		return "addquestion";
 	}
 
 	@PostMapping(value = "savequestion")
 	public String saveQuestion(@ModelAttribute Question question) {
 		questionrepository.save(question);
-		return "redirect:/showPoll";
+		Long pollId = question.getPoll().getPoll_id();
+
+		return "redirect:/showPoll/" + pollId;
 	}
 
 	// REST
