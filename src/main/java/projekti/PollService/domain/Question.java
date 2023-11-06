@@ -12,18 +12,19 @@ public class Question {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long question_id;
+	private Long questionId;
 	private String content;
 	
 	@ManyToOne
-	@JoinColumn(name = "poll_id")
+	@JoinColumn(name = "pollId")
 	private Poll poll;
 	
-	public Long getQuestion_id() {
-		return question_id;
+	
+	public Long getQuestionId() {
+		return questionId;
 	}
-	public void setQuestion_id(Long question_id) {
-		this.question_id = question_id;
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
 	}
 	public Poll getPoll() {
 		return poll;

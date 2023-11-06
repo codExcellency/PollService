@@ -1,8 +1,5 @@
 package projekti.PollService.web;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 
@@ -35,7 +29,7 @@ public class PollController {
 	@PostMapping(value = "/savePoll")
 	public String savePoll(@ModelAttribute Poll poll) {
 		pollrepository.save(poll);
-		Long pollId = poll.getPoll_id();
+		Long pollId = poll.getPollId();
 		return "redirect:/showPoll/" + pollId;
 	}
 
@@ -52,23 +46,4 @@ public class PollController {
 		return "pollv1";
 	}
 
-	// REST
-
-	// Get all polls
-	@GetMapping(value = "/polls")
-	public @ResponseBody List<Poll> pollListRest() {
-		return (List<Poll>) pollrepository.findAll();
-	}
-
-	// Get poll by id
-	@GetMapping(value = "/polls/{id}")
-	public @ResponseBody Optional<Poll> findPollRest(@PathVariable("id") Long poll_id) {
-		return pollrepository.findById(poll_id);
-	}
-
-	// Add new poll
-	@PostMapping(value = "/polls")
-	public @ResponseBody Poll savePollRest(@RequestBody Poll poll) {
-		return pollrepository.save(poll);
-	}
 }
