@@ -2,7 +2,7 @@ package projekti.PollService.domain;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,6 +20,7 @@ public class Poll {
 	private String name;
 	private String description;
 	
+	@JsonIgnoreProperties("poll")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "poll")
 	private List<Question> questions;
 	
