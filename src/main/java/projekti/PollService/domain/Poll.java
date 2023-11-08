@@ -20,7 +20,6 @@ public class Poll {
 	private String name;
 	private String description;
 	
-	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "poll")
 	private List<Question> questions;
 	
