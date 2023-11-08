@@ -30,6 +30,8 @@ public class RestController {
 	@Autowired
 	private AnswerRepository answerrepository;
 
+	
+	//POLLS
 
 	// Get all polls
 	@GetMapping(value = "/polls")
@@ -39,15 +41,25 @@ public class RestController {
 
 	// Get poll by id
 	@GetMapping(value = "/polls/{id}")
-	public @ResponseBody Optional<Poll> findPollRest(@PathVariable("id") Long poll_id) {
-		return pollrepository.findById(poll_id);
+	public @ResponseBody Optional<Poll> findPollRest(@PathVariable("id") Long pollId) {
+		return pollrepository.findById(pollId);
 	}
+	
+	//QUESTIONS
 	
 	// Get all questions of a poll
 	@GetMapping(value = "/polls/{id}/questions")
 	public @ResponseBody List<Question> questionListRest(@PathVariable("id") Long pollId) {
 		return (List<Question>) questionrepository.findByPoll_PollId(pollId);
 	}
+	
+	//Get question by id
+	@GetMapping(value = "/questions/{id}")
+	public @ResponseBody Optional<Question> getQuestionRest(@PathVariable("id")Long questionId) {
+		return questionrepository.findById(questionId);
+	}
+	
+	//ANSWERS
 
 	//Get all answers for a poll
 	@GetMapping(value = "/polls/{id}/answers")
@@ -56,14 +68,15 @@ public class RestController {
 	}
 	
 	//Get all answers for a question
-	@GetMapping(value = "/polls/{pollid}/questions/{questionid}/answers")
-	public @ResponseBody List<Answer> questionAnswerListRest(@PathVariable("pollid") Long pollId, @PathVariable("questionid") Long questionId){
+	@GetMapping(value = "/questions/{questionid}/answers")
+	public @ResponseBody List<Answer> questionAnswerListRest(@PathVariable("questionid") Long questionId){
 		return (List<Answer>) answerrepository.findByQuestion_QuestionId(questionId);
 	}
 	
-	//Post answer to question
-	@PostMapping(value = "/questions/{id}/answers")
-	public @ResponseBody Answer postQuestionAnswer(@RequestBody Answer answer, @PathVariable("id")Long questionId){
+	//Post answer to a question
+	@PostMapping(value = "/answers")
+	public @ResponseBody Answer postQuestionAnswer(@RequestBody Answer answer){
 		return answerrepository.save(answer);
 	}
+	
 }
