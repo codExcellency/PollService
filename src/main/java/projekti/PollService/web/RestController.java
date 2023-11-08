@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,10 @@ import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.Question;
 import projekti.PollService.domain.QuestionRepository;
 
+@CrossOrigin
 @Controller
 public class RestController {
-	
+
 	@Autowired
 	private PollRepository pollrepository;
 
