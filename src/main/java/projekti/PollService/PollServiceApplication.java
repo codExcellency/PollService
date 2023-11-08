@@ -29,6 +29,8 @@ public class PollServiceApplication {
 			pollRepository.save(poll1);
 			Poll poll2 = new Poll("Course feedback", "Give feedback on the course");
 			pollRepository.save(poll2);
+			Poll poll3 = new Poll("Ryhmätyö-kysyely", "Anna palautetta ryhmätyöskentelyn järjestelyistä");
+			pollRepository.save(poll3);
 			
 			log.info("save some questions");
 			Question question1 = new Question("What would you like to have as the friday special?", poll1);
@@ -37,6 +39,15 @@ public class PollServiceApplication {
 			questionRepository.save(question2);
 			Question question3 = new Question("Did the course material help you learn?", poll2);
 			questionRepository.save(question3);
+			
+			Question question4 = new Question("Miten ryhmäjako vaikutti ryhmän toimivuuteen?", poll3);
+			questionRepository.save(question4);
+			Question question5 = new Question("Miten ryhmäjakoa olisi voinut parantaa?", poll3);
+			questionRepository.save(question5);
+			Question question6 = new Question("Oliko ryhmätehtävälle varattu oikeaan aikaan aikaa tunneilta?", poll3);
+			questionRepository.save(question6);
+			Question question7 = new Question("Mitä asioita teitte ryhmässä jotka tukivat ryhmätyötä?", poll3);
+			questionRepository.save(question7);
 		};
 	}
 }
