@@ -19,7 +19,6 @@ public class PollController {
 	@Autowired
 	private PollRepository pollrepository;
 
-
 	@RequestMapping(value = "/addPoll")
 	public String addPoll(Model model) {
 		model.addAttribute("poll", new Poll());
