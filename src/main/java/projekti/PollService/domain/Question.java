@@ -2,6 +2,8 @@ package projekti.PollService.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class Question {
 	private String content;
 
 	@ManyToOne
+	@JsonIgnoreProperties("questions")
 	@JoinColumn(name = "pollId")
 	private Poll poll;
 
