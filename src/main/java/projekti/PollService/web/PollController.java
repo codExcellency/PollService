@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
+import projekti.PollService.domain.QuestionRepository;
 
 @CrossOrigin
 @Controller
@@ -18,6 +19,9 @@ public class PollController {
 
 	@Autowired
 	private PollRepository pollrepository;
+
+	@Autowired
+	QuestionRepository questionrepository;
 
 	@RequestMapping(value = "/addPoll")
 	public String addPoll(Model model) {
@@ -36,10 +40,11 @@ public class PollController {
 	public String showOnePoll(@PathVariable("id") Long pollId, Model model) {
 		Poll poll = pollrepository.findById(pollId).orElse(null);
 		model.addAttribute("poll", poll);
+		model.addAttribute("questions", questionrepository.findByPoll_PollId(pollId));
 		return "showpoll";
 	}
 
-	@GetMapping(value = "/pollv1")
+	@GetMapping(value = { "/", "/pollv1" })
 	public String listPOlls(Model model) {
 		model.addAttribute("polls", pollrepository.findAll());
 		return "pollv1";

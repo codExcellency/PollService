@@ -12,6 +12,9 @@
 
     <h1 th:text="${poll.name}"></h1>
 
+    <ol>
+        <li th:each=" question : ${questions}" th:text="${question.content}"></li>
+    </ol>
 
 </body>
 
