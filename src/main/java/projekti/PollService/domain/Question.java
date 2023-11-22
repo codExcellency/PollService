@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,11 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long questionId;
 	private String content;
+	
+	public enum questionType {TEXT, RADIOBUTTON};
+	
+	@Enumerated(EnumType.STRING)
+	private questionType questionType;
 
 	@ManyToOne
 	@JsonIgnoreProperties("questions")
@@ -53,9 +60,27 @@ public class Question {
 		this.content = content;
 	}
 
-	public Question(String content, Poll poll) {
+	public questionType getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(questionType questionType) {
+		this.questionType = questionType;
+	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+	
+
+	public Question(String content, projekti.PollService.domain.Question.questionType questionType, Poll poll) {
 		super();
 		this.content = content;
+		this.questionType = questionType;
 		this.poll = poll;
 	}
 

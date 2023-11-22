@@ -7,7 +7,8 @@
 </head>
 
 <body>
-    <a th:href="@{/addQuestion/{id}(id=${poll.pollId})}">Add question</a>
+    <a th:href="@{/addQuestion/{id}/text(id=${poll.pollId})}">Add text question</a>
+    <a th:href="@{/addQuestion/{id}/radiobutton(id=${poll.pollId})}">Add radiobutton question</a>
     <p><input type="button" value="Finish" onclick="location.href='/pollv1'" /></p>
 
     <h1 th:text="${poll.name}"></h1>

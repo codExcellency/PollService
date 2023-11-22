@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.Question;
+import projekti.PollService.domain.Question.questionType;
 import projekti.PollService.domain.QuestionRepository;
 
 @CrossOrigin
@@ -23,14 +24,28 @@ public class QuestionController {
 	@Autowired
 	private PollRepository pollRepository;
 
-	@RequestMapping(value = "addQuestion/{id}")
-	public String addQuestion(@PathVariable("id") Long pollId, Model model) {
-
+	//Add TEXT question
+	@RequestMapping(value = "addQuestion/{id}/text")
+	public String addTextQuestion(@PathVariable("id") Long pollId, Model model) {
+		
 		Question newQuestion = new Question();
 		Poll poll = pollRepository.findById(pollId).orElse(null);
 		newQuestion.setPoll(poll);
+		newQuestion.setQuestionType(questionType.TEXT);
 		model.addAttribute("newQuestion", newQuestion);
 		return "addquestion";
+	}
+	
+	//Add RADIOBUTTON question
+	@RequestMapping(value = "addQuestion/{id}/radiobutton")
+	public String addRadiobuttonQuestion(@PathVariable("id") Long pollId, Model model) {
+		Question newQuestion = new Question();
+		Poll poll = pollRepository.findById(pollId).orElse(null);
+		newQuestion.setPoll(poll);
+		newQuestion.setQuestionType(questionType.RADIOBUTTON);
+		model.addAttribute("newQuestion", newQuestion);
+		return "addquestion";
+			
 	}
 
 	@PostMapping(value = "savequestion")
