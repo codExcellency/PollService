@@ -10,7 +10,16 @@
     <!-- <h1 th:text="'New question for ' + ${poll.name}"></h1> -->
     <form method="post" th:action="@{/savequestion}" th:object="${newQuestion}">
         <input type="hidden" th:field="${newQuestion.poll}" />
-        <p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
+        <input type="hidden" th:field="${newQuestion.questionType}"/>
+        <div th:switch="${newQuestion.questionType.name()}">
+			<div th:case="'TEXT'">
+				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
+			</div>
+			<div th:case="'RADIOBUTTON'">
+				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
+				<p>Radiobutton placeholder</p>
+			</div>
+		</div>
         <input type="submit" value="Save" />
     </form>
 </body>

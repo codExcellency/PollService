@@ -12,6 +12,7 @@ import projekti.PollService.domain.AnswerRepository;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.Question;
+import projekti.PollService.domain.Question.questionType;
 import projekti.PollService.domain.QuestionRepository;
 
 @SpringBootApplication
@@ -35,20 +36,20 @@ public class PollServiceApplication {
 			pollRepository.save(poll3);
 			
 			log.info("save some questions");
-			Question question1 = new Question("What would you like to have as the friday special?", poll1);
+			Question question1 = new Question("What would you like to have as the friday special?", questionType.TEXT, poll1);
 			questionRepository.save(question1);
-			Question question2 = new Question("How easy was the exam?", poll2);
+			Question question2 = new Question("How easy was the exam?", questionType.TEXT, poll2);
 			questionRepository.save(question2);
-			Question question3 = new Question("Did the course material help you learn?", poll2);
+			Question question3 = new Question("Did the course material help you learn?", questionType.TEXT, poll2);
 			questionRepository.save(question3);
 			
-			Question question4 = new Question("Miten ryhmäjako vaikutti ryhmän toimivuuteen?", poll3);
+			Question question4 = new Question("Miten ryhmäjako vaikutti ryhmän toimivuuteen?", questionType.TEXT, poll3);
 			questionRepository.save(question4);
-			Question question5 = new Question("Miten ryhmäjakoa olisi voinut parantaa?", poll3);
+			Question question5 = new Question("Miten ryhmäjakoa olisi voinut parantaa?", questionType.TEXT, poll3);
 			questionRepository.save(question5);
-			Question question6 = new Question("Oliko ryhmätehtävälle varattu oikeaan aikaan aikaa tunneilta?", poll3);
+			Question question6 = new Question("Oliko ryhmätehtävälle varattu oikeaan aikaan aikaa tunneilta?", questionType.TEXT, poll3);
 			questionRepository.save(question6);
-			Question question7 = new Question("Mitä asioita teitte ryhmässä jotka tukivat ryhmätyötä?", poll3);
+			Question question7 = new Question("Mitä asioita teitte ryhmässä jotka tukivat ryhmätyötä?", questionType.TEXT, poll3);
 			questionRepository.save(question7);
 			
 			//Answers
