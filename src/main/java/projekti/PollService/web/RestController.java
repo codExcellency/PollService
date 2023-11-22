@@ -37,13 +37,13 @@ public class RestController {
 
 	// Get all polls
 	@GetMapping(value = "/polls")
-	public @ResponseBody List<Poll> pollListRest() {
+	public @ResponseBody List<Poll> getPolls() {
 		return (List<Poll>) pollrepository.findAll();
 	}
 
 	// Get poll by id
 	@GetMapping(value = "/polls/{id}")
-	public @ResponseBody Optional<Poll> findPollRest(@PathVariable("id") Long pollId) {
+	public @ResponseBody Optional<Poll> getPollById(@PathVariable("id") Long pollId) {
 		return pollrepository.findById(pollId);
 	}
 	
@@ -51,13 +51,13 @@ public class RestController {
 	
 	// Get all questions of a poll
 	@GetMapping(value = "/polls/{id}/questions")
-	public @ResponseBody List<Question> questionListRest(@PathVariable("id") Long pollId) {
+	public @ResponseBody List<Question> getPollQuestions(@PathVariable("id") Long pollId) {
 		return (List<Question>) questionrepository.findByPoll_PollId(pollId);
 	}
 	
 	//Get question by id
 	@GetMapping(value = "/questions/{id}")
-	public @ResponseBody Optional<Question> getQuestionRest(@PathVariable("id")Long questionId) {
+	public @ResponseBody Optional<Question> getQuestionById(@PathVariable("id")Long questionId) {
 		return questionrepository.findById(questionId);
 	}
 	
@@ -65,20 +65,24 @@ public class RestController {
 
 	//Get all answers for a poll
 	@GetMapping(value = "/polls/{id}/answers")
-	public @ResponseBody List<Answer> pollAnswerListRest(@PathVariable("id") Long pollId){
+	public @ResponseBody List<Answer> getPollAnswers(@PathVariable("id") Long pollId){
 		return (List<Answer>) answerrepository.findByQuestion_Poll_PollId(pollId);
 	}
 	
 	//Get all answers for a question
 	@GetMapping(value = "/questions/{questionid}/answers")
-	public @ResponseBody List<Answer> questionAnswerListRest(@PathVariable("questionid") Long questionId){
+	public @ResponseBody List<Answer> getQuestionAnswers(@PathVariable("questionid") Long questionId){
 		return (List<Answer>) answerrepository.findByQuestion_QuestionId(questionId);
 	}
 	
 	//Post answer to a question
 	@PostMapping(value = "/answers")
-	public @ResponseBody Answer postQuestionAnswer(@RequestBody Answer answer){
+	public @ResponseBody Answer postAnswer(@RequestBody Answer answer){
 		return answerrepository.save(answer);
 	}
 	
+	@GetMapping(value = "/answers")
+	public @ResponseBody List<Answer> getAllAnswers(){
+		return (List<Answer>) answerrepository.findAll();
+	}
 }
