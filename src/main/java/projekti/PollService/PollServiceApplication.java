@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import projekti.PollService.domain.Answer;
+import projekti.PollService.domain.AnswerRepository;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.Question;
@@ -22,14 +24,14 @@ public class PollServiceApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner pollDemo(PollRepository pollRepository, QuestionRepository questionRepository) {
+	public CommandLineRunner pollDemo(PollRepository pollRepository, QuestionRepository questionRepository, AnswerRepository answerRepository) {
 		return (args) -> {
 			log.info("save some polls");
 			Poll poll1 = new Poll("Friday special poll", "Vote on the new friday special option at the cafeteria");
 			pollRepository.save(poll1);
 			Poll poll2 = new Poll("Course feedback", "Give feedback on the course");
 			pollRepository.save(poll2);
-			Poll poll3 = new Poll("Ryhmätyö-kysyely", "Anna palautetta ryhmätyöskentelyn järjestelyistä");
+			Poll poll3 = new Poll("Ryhmätyö-kysely", "Anna palautetta ryhmätyöskentelyn järjestelyistä");
 			pollRepository.save(poll3);
 			
 			log.info("save some questions");
@@ -48,6 +50,13 @@ public class PollServiceApplication {
 			questionRepository.save(question6);
 			Question question7 = new Question("Mitä asioita teitte ryhmässä jotka tukivat ryhmätyötä?", poll3);
 			questionRepository.save(question7);
+			
+			//Answers
+			answerRepository.save(new Answer("Ei mitenkään", question4));
+			answerRepository.save(new Answer("Oli todella mukava ratkaisu", question4));
+			answerRepository.save(new Answer("Ei olisi millään tavoin", question5));
+			answerRepository.save(new Answer("Joo", question6));
+			answerRepository.save(new Answer("Teimme ryhmätöitä", question7));
 		};
 	}
 }

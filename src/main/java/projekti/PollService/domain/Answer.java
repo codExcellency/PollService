@@ -1,5 +1,7 @@
 package projekti.PollService.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class Answer {
 	private String content;
 	
 	@ManyToOne
+	@JsonIgnoreProperties("answers")
 	@JoinColumn(name="questionId")
 	private Question question;
 
