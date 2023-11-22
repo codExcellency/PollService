@@ -28,7 +28,11 @@ public class Question {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	private List<Answer> answers;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="question")
+	private List<Option> options;
 	
+	
+	//Getters & Setters
 	public Long getQuestionId() {
 		return questionId;
 	}
@@ -52,7 +56,24 @@ public class Question {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
 
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public List<Option> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<Option> options) {
+		this.options = options;
+	}
+	
+	//Constructors
 	public Question(String content, Poll poll) {
 		super();
 		this.content = content;
