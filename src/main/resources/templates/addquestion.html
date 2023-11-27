@@ -18,6 +18,11 @@
 			<div th:case="'RADIOBUTTON'">
 				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
 				<p>Radiobutton placeholder</p>
+				<ol>
+        			<li th:each="option : ${options}" th:text="${option.content}"></li>
+    			</ol>
+    			<p><input type="text" placeholder="add answer option" th:value="{}"></p>
+    			<input type="submit" value="Add option" name="addoption" />
 			</div>
 		</div>
         <input type="submit" value="Save" />
