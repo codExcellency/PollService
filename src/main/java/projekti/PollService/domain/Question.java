@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+
 @Entity
 public class Question {
 
@@ -33,6 +34,7 @@ public class Question {
 	@JoinColumn(name = "pollId")
 	private Poll poll;
 
+	@JsonIgnoreProperties("question")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	private List<Answer> answers;
 	
