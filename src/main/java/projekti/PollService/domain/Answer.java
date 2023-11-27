@@ -9,15 +9,15 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Answer {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long answerId;
-	
+
 	private String content;
-	
+
 	@ManyToOne
-	@JoinColumn(name="questionId")
+	@JoinColumn(name = "questionId")
 	private Question question;
 
 	public Long getAnswerId() {
@@ -49,7 +49,7 @@ public class Answer {
 		this.content = content;
 		this.question = question;
 	}
-	
+
 	public Answer() {
 		super();
 	}
@@ -58,5 +58,5 @@ public class Answer {
 	public String toString() {
 		return "Answer [answerId=" + answerId + ", content=" + content + ", question=" + question + "]";
 	}
-	
+
 }
