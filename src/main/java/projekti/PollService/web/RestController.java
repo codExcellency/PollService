@@ -20,6 +20,7 @@ import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.PollSummaryDTO;
 import projekti.PollService.domain.Question;
 import projekti.PollService.domain.QuestionRepository;
+import projekti.PollService.domain.QuestionSummaryDTO;
 
 @CrossOrigin
 @Controller
@@ -47,11 +48,14 @@ public class RestController {
 	    return pollDTOs;
 	}
 
+	//KESKEN
 	// Get poll by id
-	@GetMapping(value = "/polls/{id}")
-	public @ResponseBody Optional<Poll> getPollById(@PathVariable("id") Long pollId) {
-		return pollrepository.findById(pollId);
-	}
+//	@GetMapping(value = "/polls/{id}")
+//	public @ResponseBody List<QuestionSummaryDTO> getPollById(@PathVariable("id") Long pollId) {
+//		Poll poll = pollrepository.findById(pollId).orElse(null);
+//		QuestionSummaryDTO questionDTOs = poll.s
+// 		return "";
+//	}
 	
 	//QUESTIONS
 	
@@ -62,18 +66,6 @@ public class RestController {
 	}
 	
 	//ANSWERS
-
-//	//Get all answers for a poll
-//	@GetMapping(value = "/polls/{id}/answers")
-//	public @ResponseBody List<Answer> getPollAnswers(@PathVariable("id") Long pollId){
-//		return (List<Answer>) answerrepository.findByQuestion_Poll_PollId(pollId);
-//	}
-	
-//	//Get all answers for a question
-//	@GetMapping(value = "/questions/{questionid}/answers")
-//	public @ResponseBody List<Answer> getQuestionAnswers(@PathVariable("questionid") Long questionId){
-//		return (List<Answer>) answerrepository.findByQuestion_QuestionId(questionId);
-//	}
 	
 	//Post answer to a question
 	@PostMapping(value = "/answers")
@@ -81,8 +73,4 @@ public class RestController {
 		return answerrepository.save(answer);
 	}
 	
-//	@GetMapping(value = "/answers")
-//	public @ResponseBody List<Answer> getAllAnswers(){
-//		return (List<Answer>) answerrepository.findAll();
-//	}
 }
