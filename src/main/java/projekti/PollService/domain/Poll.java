@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+//@JsonIgnoreProperties("questions")
 public class Poll {
 	
 	@Id
