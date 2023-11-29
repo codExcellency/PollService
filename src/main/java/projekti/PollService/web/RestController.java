@@ -2,6 +2,7 @@ package projekti.PollService.web;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import projekti.PollService.domain.Answer;
 import projekti.PollService.domain.AnswerRepository;
 import projekti.PollService.domain.Poll;
+import projekti.PollService.domain.PollDetailDTO;
 import projekti.PollService.domain.PollRepository;
+import projekti.PollService.domain.PollSummaryDTO;
 import projekti.PollService.domain.Question;
 import projekti.PollService.domain.QuestionRepository;
 
@@ -37,23 +40,32 @@ public class RestController {
 
 	// Get all polls
 	@GetMapping(value = "/polls")
-	public @ResponseBody List<Poll> getPolls() {
-		return (List<Poll>) pollrepository.findAll();
+	public @ResponseBody List<PollSummaryDTO> getPolls() {
+		List<Poll> polls = (List<Poll>) pollrepository.findAll();
+	    List<PollSummaryDTO> pollDTOs = polls.stream()
+	            .map(poll -> new PollSummaryDTO(poll.getPollId(), poll.getName(), poll.getDescription()))
+	            .collect(Collectors.toList());
+	    return pollDTOs;
 	}
 
-	// Get poll by id
-	@GetMapping(value = "/polls/{id}")
-	public @ResponseBody Optional<Poll> getPollById(@PathVariable("id") Long pollId) {
-		return pollrepository.findById(pollId);
-	}
+
+	// Get poll by id with questions (but not answers)
+    @GetMapping(value = "/polls/{id}/questions")
+    public @ResponseBody PollDetailDTO getPollById(@PathVariable("id") Long pollId) {
+        Poll poll = pollrepository.findById(pollId).orElse(null);
+
+        if (poll != null) {
+            return new PollDetailDTO(
+                    poll.getPollId(),
+                    poll.getName(),
+                    poll.getDescription(),
+                    poll.getQuestions());
+        } else {
+            return null;
+       }
+    }
 	
 	//QUESTIONS
-	
-	// Get all questions of a poll
-	@GetMapping(value = "/polls/{id}/questions")
-	public @ResponseBody List<Question> getPollQuestions(@PathVariable("id") Long pollId) {
-		return (List<Question>) questionrepository.findByPoll_PollId(pollId);
-	}
 	
 	//Get question by id
 	@GetMapping(value = "/questions/{id}")
@@ -62,18 +74,6 @@ public class RestController {
 	}
 	
 	//ANSWERS
-
-	//Get all answers for a poll
-	@GetMapping(value = "/polls/{id}/answers")
-	public @ResponseBody List<Answer> getPollAnswers(@PathVariable("id") Long pollId){
-		return (List<Answer>) answerrepository.findByQuestion_Poll_PollId(pollId);
-	}
-	
-	//Get all answers for a question
-	@GetMapping(value = "/questions/{questionid}/answers")
-	public @ResponseBody List<Answer> getQuestionAnswers(@PathVariable("questionid") Long questionId){
-		return (List<Answer>) answerrepository.findByQuestion_QuestionId(questionId);
-	}
 	
 	//Post answer to a question
 	@PostMapping(value = "/answers")
@@ -81,8 +81,4 @@ public class RestController {
 		return answerrepository.save(answer);
 	}
 	
-	@GetMapping(value = "/answers")
-	public @ResponseBody List<Answer> getAllAnswers(){
-		return (List<Answer>) answerrepository.findAll();
-	}
 }
