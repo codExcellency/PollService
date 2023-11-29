@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import projekti.PollService.domain.Answer;
 import projekti.PollService.domain.AnswerRepository;
 import projekti.PollService.domain.Poll;
+import projekti.PollService.domain.PollDetailDTO;
 import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.PollSummaryDTO;
 import projekti.PollService.domain.Question;
 import projekti.PollService.domain.QuestionRepository;
-import projekti.PollService.domain.QuestionSummaryDTO;
 
 @CrossOrigin
 @Controller
@@ -48,14 +48,22 @@ public class RestController {
 	    return pollDTOs;
 	}
 
-	//KESKEN
-	// Get poll by id
-//	@GetMapping(value = "/polls/{id}")
-//	public @ResponseBody List<QuestionSummaryDTO> getPollById(@PathVariable("id") Long pollId) {
-//		Poll poll = pollrepository.findById(pollId).orElse(null);
-//		QuestionSummaryDTO questionDTOs = poll.s
-// 		return "";
-//	}
+
+	// Get poll by id with questions (but not answers)
+    @GetMapping(value = "/polls/{id}/questions")
+    public @ResponseBody PollDetailDTO getPollById(@PathVariable("id") Long pollId) {
+        Poll poll = pollrepository.findById(pollId).orElse(null);
+
+        if (poll != null) {
+            return new PollDetailDTO(
+                    poll.getPollId(),
+                    poll.getName(),
+                    poll.getDescription(),
+                    poll.getQuestions());
+        } else {
+            return null;
+       }
+    }
 	
 	//QUESTIONS
 	
