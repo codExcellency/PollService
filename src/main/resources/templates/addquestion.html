@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>New question</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>New question</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
-    <!-- <h1 th:text="'New question for ' + ${poll.name}"></h1> -->
-    <form method="post" th:action="@{/savequestion}" th:object="${newQuestion}">
-        <input type="hidden" th:field="${newQuestion.poll}" />
-        <input type="hidden" th:field="${newQuestion.questionType}"/>
-        <div th:switch="${newQuestion.questionType.name()}">
+	<!-- <h1 th:text="'New question for ' + ${poll.name}"></h1> -->
+	<form method="post" th:action="@{/savequestion}" th:object="${newQuestion}">
+		<input type="hidden" th:field="${newQuestion.poll}" />
+		<input type="hidden" th:field="${newQuestion.questionType}" />
+		<div th:switch="${newQuestion.questionType.name()}">
 			<div th:case="'TEXT'">
 				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
 			</div>
@@ -19,14 +19,14 @@
 				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
 				<p>Radiobutton placeholder</p>
 				<ol>
-        			<li th:each="option : ${options}" th:text="${option.content}"></li>
-    			</ol>
-    			<p><input type="text" placeholder="add answer option" th:value="{}"></p>
-    			<input type="submit" value="Add option" name="addoption" />
+					<li th:each="option : ${options}" th:text="${option.content}"></li>
+				</ol>
+				<p><input type="text" placeholder="add answer option" th:value="{}"></p>
+				<input type="submit" value="Add option" name="addoption" />
 			</div>
 		</div>
-        <input type="submit" value="Save" />
-    </form>
+		<input type="submit" value="Save" />
+	</form>
 </body>
 
 </html>
