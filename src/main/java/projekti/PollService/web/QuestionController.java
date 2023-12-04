@@ -1,5 +1,8 @@
 package projekti.PollService.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import projekti.PollService.domain.Option;
+import projekti.PollService.domain.OptionRepository;
 import projekti.PollService.domain.Poll;
 import projekti.PollService.domain.PollRepository;
 import projekti.PollService.domain.Question;
@@ -23,6 +29,9 @@ public class QuestionController {
 
 	@Autowired
 	private PollRepository pollRepository;
+	
+	@Autowired
+	private OptionRepository optionRepository;
 
 	//Add TEXT question
 	@RequestMapping(value = "addQuestion/{id}/text")
@@ -43,15 +52,25 @@ public class QuestionController {
 		Poll poll = pollRepository.findById(pollId).orElse(null);
 		newQuestion.setPoll(poll);
 		newQuestion.setQuestionType(questionType.RADIOBUTTON);
-		String tempOption = "";
 		model.addAttribute("newQuestion", newQuestion);
-		model.addAttribute("", tempOption);
 		return "addquestion";	
 	}
 	
-	@RequestMapping(value = "savequestion", params = "giveoption")
-	public String addOption(@ModelAttribute Question question, Model model) {
-		
+	@RequestMapping(value="savequestion/{id}", params ="giveoption")
+	public String addOption(@ModelAttribute("newQuestion") Question question, Model model) {
+		Long questionId = question.getQuestionId();
+		if (questionrepository.findById(questionId))
+		questionrepository.save(question);
+		List<Option> optionList;
+		if (question.getOptions()!= null) {
+			optionList = question.getOptions();
+		}else {
+			optionList = new ArrayList<Option>();
+		}
+		Option option = new Option(question.getTempOption(), question);
+		optionRepository.save(option);
+		optionList.add(option);
+		question.setOptions(optionList);
 		return "addquestion";
 	}
 

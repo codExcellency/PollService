@@ -21,8 +21,8 @@
 				<ol>
         			<li th:each="option : ${options}" th:text="${option.content}"></li>
     			</ol>
-    			<p><input type="text" placeholder="add answer option" th:value="{}"></p>
-    			<input type="submit" value="Add option" name="addoption" />
+    			<p><input type="text" placeholder="add answer option" th:field="${newQuestion.tempOption}"></p>
+    			<input type="submit" value="Add option" name="giveoption" />
 			</div>
 		</div>
         <input type="submit" value="Save" name="save"/>

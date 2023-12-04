@@ -41,6 +41,7 @@ public class Question {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="question")
 	private List<Option> options;
 	
+	private String tempOption;
 	
 	//Getters & Setters
 	public Long getQuestionId() {
@@ -91,6 +92,14 @@ public class Question {
 		this.options = options;
 	}
 	
+	public String getTempOption() {
+		return tempOption;
+	}
+
+	public void setTempOption(String tempOption) {
+		this.tempOption = tempOption;
+	}
+
 	//Constructors
 	public Question(String content, questionType questionType, Poll poll) {
 		super();
