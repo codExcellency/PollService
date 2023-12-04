@@ -43,12 +43,19 @@ public class QuestionController {
 		Poll poll = pollRepository.findById(pollId).orElse(null);
 		newQuestion.setPoll(poll);
 		newQuestion.setQuestionType(questionType.RADIOBUTTON);
+		String tempOption = "";
 		model.addAttribute("newQuestion", newQuestion);
+		model.addAttribute("", tempOption);
+		return "addquestion";	
+	}
+	
+	@RequestMapping(value = "savequestion", params = "giveoption")
+	public String addOption(@ModelAttribute Question question, Model model) {
+		
 		return "addquestion";
-			
 	}
 
-	@PostMapping(value = "savequestion")
+	@PostMapping(value = "savequestion", params = "save")
 	public String saveQuestion(@ModelAttribute Question question) {
 		questionrepository.save(question);
 		Long pollId = question.getPoll().getPollId();
