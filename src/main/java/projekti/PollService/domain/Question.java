@@ -42,6 +42,8 @@ public class Question {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	private List<Option> options;
 
+	private String tempOption;
+
 	// Getters & Setters
 	public Long getQuestionId() {
 		return questionId;
