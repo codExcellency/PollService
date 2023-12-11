@@ -49,5 +49,10 @@ public class PollController {
 		model.addAttribute("polls", pollrepository.findAll());
 		return "pollv1";
 	}
+	
+	@GetMapping("/resthome")
+	public String restHomePage() {
+		return "resthome";
+	}
 
 }
