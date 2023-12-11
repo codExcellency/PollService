@@ -2,6 +2,7 @@ package projekti.PollService.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,25 +53,42 @@ public class QuestionController {
 		Poll poll = pollRepository.findById(pollId).orElse(null);
 		newQuestion.setPoll(poll);
 		newQuestion.setQuestionType(questionType.RADIOBUTTON);
+		// questionrepository.save(newQuestion);
 		model.addAttribute("newQuestion", newQuestion);
 		return "addquestion";
 	}
 
-	@RequestMapping(value = "savequestion/{id}", params = "giveoption")
-	public String addOption(@ModelAttribute("newQuestion") Question question, Model model) {
-		Long questionId = question.getQuestionId();
-		if (questionrepository.findById(questionId))
-			questionrepository.save(question);
+	@PostMapping(value = "savequestion", params = "giveoption")
+	public String addOption(@ModelAttribute("newQuestion") Question newQuestion, Model model) {
+		Question question;
+		if (newQuestion.getQuestionId() != null) {
+			Optional<Question> existingQuestion = questionrepository.findById(newQuestion.getQuestionId());
+
+			if (existingQuestion.isPresent()) {
+				question = existingQuestion.get();
+				question.setTempOption(newQuestion.getTempOption());
+			} else {
+				return "addquestion";
+			}
+
+		} else {
+			question = questionrepository.save(newQuestion);
+		}
+
 		List<Option> optionList;
 		if (question.getOptions() != null) {
 			optionList = question.getOptions();
+
 		} else {
 			optionList = new ArrayList<Option>();
 		}
+
 		Option option = new Option(question.getTempOption(), question);
 		optionRepository.save(option);
 		optionList.add(option);
 		question.setOptions(optionList);
+		questionrepository.save(question);
+		model.addAttribute("options", question.getOptions());
 		return "addquestion";
 	}
 
