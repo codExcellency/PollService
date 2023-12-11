@@ -4,19 +4,26 @@
 <head>
     <title>Poll</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
-    <a th:href="@{/addQuestion/{id}/text(id=${poll.pollId})}">Add text question</a>
-    <a th:href="@{/addQuestion/{id}/radiobutton(id=${poll.pollId})}">Add radiobutton question</a>
-    <p><input type="button" value="Finish" onclick="location.href='/pollv1'" /></p>
+<div style= "margin: 20px;">
+    <a th:href="@{/addQuestion/{id}/text(id=${poll.pollId})}" class="btn btn-primary btn-lg">Add text question</a><br/>
+    <a th:href="@{/addQuestion/{id}/radiobutton(id=${poll.pollId})}" class="btn btn-primary btn-lg">Add radio button question</a><br/>
+    <input type="button" value="Finish" onclick="location.href='/pollv1'" class="btn btn-primary btn-lg"/>
+ </div>
+    
+	<div style="width: 800px; margin: 10% auto;">  
 
     <h1 th:text="${poll.name}"></h1>
 
     <ol>
         <li th:each=" question : ${questions}" th:text="${question.content}"></li>
     </ol>
-
+    </div>
+    
+	
 </body>
 
 </html>

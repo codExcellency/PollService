@@ -4,17 +4,22 @@
 <head>
     <title>New question</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
+
     <!-- <h1 th:text="'New question for ' + ${poll.name}"></h1> -->
+    
     <form method="post" th:action="@{/savequestion}" th:object="${newQuestion}">
         <input type="hidden" th:field="${newQuestion.poll}" />
         <input type="hidden" th:field="${newQuestion.questionType}"/>
+        
         <div th:switch="${newQuestion.questionType.name()}">
 			<div th:case="'TEXT'">
 				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
 			</div>
+			
 			<div th:case="'RADIOBUTTON'">
 				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
 				<p>Radiobutton placeholder</p>
@@ -24,9 +29,11 @@
     			<p><input type="text" placeholder="add answer option" th:field="${newQuestion.tempOption}"></p>
     			<input type="submit" value="Add option" name="giveoption" />
 			</div>
+			
 		</div>
         <input type="submit" value="Save" name="save"/>
     </form>
+    
 </body>
 
 </html>
