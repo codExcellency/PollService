@@ -44,12 +44,12 @@ public class PollController {
 		return "showpoll";
 	}
 
-	@GetMapping(value = { "/", "/pollv1" })
+	@GetMapping(value = { "/", "/pollapp" })
 	public String listPOlls(Model model) {
 		model.addAttribute("polls", pollrepository.findAll());
-		return "pollv1";
+		return "pollapp";
 	}
-	
+
 	@GetMapping("/resthome")
 	public String restHomePage() {
 		return "resthome";
