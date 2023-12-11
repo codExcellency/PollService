@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Polls</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<h1>Rest Home Page</h1>
+	<h2>All Polls</h2>
+	<h2>
+		Method: Get Endpoint: <a th:href="@{/polls}">/polls</a>
+	</h2>
+	<h2>Json Example:</h2>
+	<pre>
+[
+  {
+    "pollId": 3,
+    "name": "Ryhmätyö-kysely",
+    "description": "Anna palautetta ryhmätyöskentelyn järjestelyistä"
+  }
+]
+    </pre>
+
+	<h2>Poll By ID</h2>
+	<h2>
+		Method: Get Endpoint: <a th:href="@{/polls/3}">/polls/3</a>
+	</h2>
+	<h2>Json Example:</h2>
+	<pre>
+{
+  "pollId": 3,
+  "name": "Ryhmätyö-kysely",
+  "description": "Anna palautetta ryhmätyöskentelyn järjestelyistä",
+  "questions": [
+    {
+      "questionId": 4,
+      "content": "Miten ryhmäjako vaikutti ryhmän toimivuuteen?",
+      "questionType": "TEXT",
+      "answers": [
+        {
+          "answerId": 1,
+          "content": "Ei mitenkään"
+        },
+        {
+          "answerId": 2,
+          "content": "Oli todella mukava ratkaisu"
+        }
+      ],
+      "options": [
+        
+      ],
+      "tempOption": null
+}
+    </pre>
+    
+    <h2>Poll By ID with questions (no answers)</h2>
+	<h2>
+		Method: Get Endpoint: <a th:href="@{/polls/3/questions}">/polls/3/questions</a>
+	</h2>
+	<h2>Json Example:</h2>
+	<pre>
+{
+  "pollId": 3,
+  "name": "Ryhmätyö-kysely",
+  "description": "Anna palautetta ryhmätyöskentelyn järjestelyistä",
+  "questions": [
+    {
+      "questionId": 4,
+      "content": "Miten ryhmäjako vaikutti ryhmän toimivuuteen?",
+      "questionType": "TEXT",
+      "options": [
+        
+      ],
+      "tempOption": null
+}
+    </pre>
+    
+    <h2>Question By ID</h2>
+	<h2>
+		Method: Get Endpoint: <a th:href="@{/questions/4}">/questions/4</a>
+	</h2>
+	<h2>Json Example:</h2>
+	<pre>
+{
+  "questionId": 4,
+  "content": "Miten ryhmäjako vaikutti ryhmän toimivuuteen?",
+  "questionType": "TEXT",
+  "poll": {
+    "pollId": 3,
+    "name": "Ryhmätyö-kysely",
+    "description": "Anna palautetta ryhmätyöskentelyn järjestelyistä"
+  },
+  "answers": [
+    {
+      "answerId": 1,
+      "content": "Ei mitenkään"
+    }
+  ],
+  "options": [
+    
+  ],
+  "tempOption": null
+}
+    </pre>
+    
+    <h2>New Answer</h2>
+	<h2>
+		Method: Post Endpoint: <a th:href="@{/answers}">/answers</a>
+	</h2>
+	<h2>Json Example:</h2>
+	<pre>
+{
+    "answerId": 6,
+    "content": "Ryhmämme toimi hyvin",
+    "question": 4
+}
+    </pre>
+</body>
+
+</html>
