@@ -24,10 +24,10 @@ public class QuestionController {
 	@Autowired
 	private PollRepository pollRepository;
 
-	//Add TEXT question
+	// Add TEXT question
 	@RequestMapping(value = "addQuestion/{id}/text")
 	public String addTextQuestion(@PathVariable("id") Long pollId, Model model) {
-		
+
 		Question newQuestion = new Question();
 		Poll poll = pollRepository.findById(pollId).orElse(null);
 		newQuestion.setPoll(poll);
@@ -35,8 +35,8 @@ public class QuestionController {
 		model.addAttribute("newQuestion", newQuestion);
 		return "addquestion";
 	}
-	
-	//Add RADIOBUTTON question
+
+	// Add RADIOBUTTON question
 	@RequestMapping(value = "addQuestion/{id}/radiobutton")
 	public String addRadiobuttonQuestion(@PathVariable("id") Long pollId, Model model) {
 		Question newQuestion = new Question();
@@ -45,13 +45,13 @@ public class QuestionController {
 		newQuestion.setQuestionType(questionType.RADIOBUTTON);
 		String tempOption = "";
 		model.addAttribute("newQuestion", newQuestion);
-		model.addAttribute("", tempOption);
-		return "addquestion";	
+		model.addAttribute("tempOption", tempOption);
+		return "addquestion";
 	}
-	
+
 	@RequestMapping(value = "savequestion", params = "giveoption")
 	public String addOption(@ModelAttribute Question question, Model model) {
-		
+
 		return "addquestion";
 	}
 

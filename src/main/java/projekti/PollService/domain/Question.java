@@ -15,7 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-
 @Entity
 public class Question {
 
@@ -23,9 +22,11 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long questionId;
 	private String content;
-	
-	public enum questionType {TEXT, RADIOBUTTON};
-	
+
+	public enum questionType {
+		TEXT, RADIOBUTTON
+	};
+
 	@Enumerated(EnumType.STRING)
 	private questionType questionType;
 
@@ -37,12 +38,11 @@ public class Question {
 	@JsonIgnoreProperties("question")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	private List<Answer> answers;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="question")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	private List<Option> options;
-	
-	
-	//Getters & Setters
+
+	// Getters & Setters
 	public Long getQuestionId() {
 		return questionId;
 	}
@@ -66,7 +66,7 @@ public class Question {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public questionType getQuestionType() {
 		return questionType;
 	}
@@ -90,8 +90,8 @@ public class Question {
 	public void setOptions(List<Option> options) {
 		this.options = options;
 	}
-	
-	//Constructors
+
+	// Constructors
 	public Question(String content, questionType questionType, Poll poll) {
 		super();
 		this.content = content;
