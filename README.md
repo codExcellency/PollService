@@ -1,0 +1,1 @@
+Kaaviot löytyvät wiki-välilehdeltä!
