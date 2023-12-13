@@ -4,31 +4,31 @@
 <head>
     <title>Add poll</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-	
-	<div style="width: 800px; margin: 10% auto;">
-	
-    <h1>New poll</h1>
-    
-    <form method="post" th:action="@{/savePoll}" th:object="${poll}">
-    	<div class="form-group">
-        	<label>Poll name</label>
-        	<input class="form-control" type="text" th:field="*{name}" />
-        </div>
-        <div class="form-group input-group-lg">
-        	<label>Description</label>
-        	<input class="form-control" th:field="*{description}" />
-        </div>
-        <div style="text-align: center">
-        <input class ="btn btn-primary btn-lg" type="submit" value="Save" />
-        </div>
-    </form>
-    
+
+    <div style="width: 800px; margin: 10% auto;">
+
+        <h1>New poll</h1>
+
+        <form method="post" th:action="@{/savePoll}" th:object="${poll}">
+            <div class="form-group">
+                <label>Poll name</label>
+                <input class="form-control" type="text" th:field="*{name}" />
+            </div>
+            <div class="form-group input-group-lg">
+                <label>Description</label>
+                <input class="form-control" th:field="*{description}" />
+            </div>
+            <div style="text-align: center">
+                <input class="btn btn-primary btn-lg" type="submit" value="Save" />
+            </div>
+        </form>
+
     </div>
-   
+
 </body>
 
 </html>

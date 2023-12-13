@@ -4,31 +4,31 @@
 <head>
 	<title>Polls</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-	
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
 </head>
 
 <body>
-	<div style= "margin: 20px;">
-	<input type="button" onclick="location.href='/addPoll'" class="btn btn-primary btn-lg" value="Create Poll"/>
+	<div style="margin: 20px;">
+		<input type="button" onclick="location.href='/addPoll'" class="btn btn-primary btn-lg" value="Create Poll" />
 	</div>
 	<div style="width: 800px; margin: 10% auto;">
-	<h1 style="text-align: center;">Welcome</h1>
-	
-	<h3>Poll manager</h3>
-	<p>Click on poll name to view and add questions to a poll.</p>
-	<table class="table table-striped">
-		<tr>
-			<th>Poll name</th>
-			<th>Description</th>
-		</tr>
-		<tr th:each="poll : ${polls}">
-			<td>
-				<a th:href="@{/showPoll/{id}(id=${poll.pollId})}" th:text="${poll.name}" />
-			</td>
-			<td th:text="${poll.description}">description</td>
-		</tr>
-	</table>
+		<h1 style="text-align: center;">Welcome</h1>
+
+		<h3>Poll manager</h3>
+		<p>Click on poll name to view and add questions to a poll.</p>
+		<table class="table table-striped">
+			<tr>
+				<th>Poll name</th>
+				<th>Description</th>
+			</tr>
+			<tr th:each="poll : ${polls}">
+				<td>
+					<a th:href="@{/showPoll/{id}(id=${poll.pollId})}" th:text="${poll.name}" />
+				</td>
+				<td th:text="${poll.description}">description</td>
+			</tr>
+		</table>
 	</div>
 </body>
 

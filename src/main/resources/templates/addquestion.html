@@ -4,33 +4,37 @@
 <head>
 	<title>New question</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-	<!-- <h1 th:text="'New question for ' + ${poll.name}"></h1> -->
-	<form method="post" th:action="@{/savequestion}" th:object="${newQuestion}">
-		<input type="hidden" th:field="${newQuestion.poll}" />
-		<input type="hidden" th:field="${newQuestion.questionType}" />
-		<input type="hidden" th:field="${newQuestion.questionId}" />
-		<div th:switch="${newQuestion.questionType.name()}">
-			<div th:case="'TEXT'">
-				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
-			</div>
+	<div style="width: 800px; margin: 10% auto;">
+		<h2>New Question</h2>
+		<form method="post" th:action="@{/savequestion}" th:object="${newQuestion}">
+			<input type="hidden" th:field="${newQuestion.poll}" />
+			<input type="hidden" th:field="${newQuestion.questionType}" />
+			<input type="hidden" th:field="${newQuestion.questionId}" />
+			<div th:switch="${newQuestion.questionType.name()}">
+				<div class="form-group">
+					<div th:case="'TEXT'">
+						<p><input class="form-control" type="text" placeholder="Insert Question" th:field="*{content}">
+						</p>
+					</div>
+				</div>
+				<div th:case="'RADIOBUTTON'">
+					<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
+					<p>Radiobutton placeholder</p>
+					<ol>
+						<li th:each="option : ${options}" th:text="${option.content}"></li>
+					</ol>
+					<p><input type="text" placeholder="add answer option" th:field="${newQuestion.tempOption}"></p>
+					<input type="submit" value="Add option" name="giveoption" />
+				</div>
 
-			<div th:case="'RADIOBUTTON'">
-				<p><input type="text" placeholder="Insert Question" th:field="*{content}"></p>
-				<p>Radiobutton placeholder</p>
-				<ol>
-					<li th:each="option : ${options}" th:text="${option.content}"></li>
-				</ol>
-				<p><input type="text" placeholder="add answer option" th:field="${newQuestion.tempOption}"></p>
-				<input type="submit" value="Add option" name="giveoption" />
 			</div>
-
-		</div>
-		<input type="submit" value="Save" name="save" />
-	</form>
+			<input class="btn btn-primary btn-lg" type="submit" value="Save" name="save" />
+		</form>
+	</div>
 </body>
 
 </html>
